@@ -17,8 +17,9 @@ services:
       - HERMES_DASHBOARD=1
       - HERMES_DASHBOARD_HOST=0.0.0.0
       - HERMES_DASHBOARD_PORT=9119
-      - HERMES_DASHBOARD_OAUTH_CLIENT_ID=agent=${HERMES_OAUTH_CLIENTID}
+      - HERMES_DASHBOARD_OAUTH_CLIENT_ID=${HERMES_OAUTH_CLIENTID}
       - HERMES_DASHBOARD_TRUST_LAN=1
+      - HERMES_DASHBOARD_PUBLIC_URL=https://hermes.${DOMAIN}
     labels:
     # Traefik - Service
     - traefik.enable=true
