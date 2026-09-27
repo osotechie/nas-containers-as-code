@@ -74,6 +74,7 @@ services:
     environment:
       - TZ=${TZ}
       - CRASHPLAN_SRV_MAX_MEM=4G
+      - GROUP_ID=${CRASHPLAN_GROUP_ID}
     labels:
     # Traefik - Service
     - traefik.enable=true
