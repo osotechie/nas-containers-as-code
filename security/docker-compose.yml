@@ -43,7 +43,8 @@ services:
     networks:
       security:
     volumes:
-      - ${DOCKERDIR}/ucm:/opt/ucm/data
+      - ${DOCKERDIR}/ucm/config:/etc/ucm
+      - ${DOCKERDIR}/ucm/data:/opt/ucm/data
     environment:
       TZ: ${TZ}
     labels:
