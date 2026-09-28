@@ -35,6 +35,33 @@ services:
     - kuma.bitwarden.http.headers=${KUMA_CFHEADERS}
     - kuma.bitwarden.http.parent_name=security
 
+  ucm:
+    container_name: UCM
+    hostname: UCM
+    image: neyslim/ultimate-ca-manager:latest
+    restart: always
+    networks:
+      security:
+    volumes:
+      - ${DOCKERDIR}/ucm:/opt/ucm/data
+    environment:
+      TZ: ${TZ}
+    labels:
+    # Traefik - Service
+    - traefik.enable=true
+    - traefik.http.services.ucm.loadbalancer.server.port=8443
+    # Traefik - Router - HTTPS
+    - traefik.http.routers.ucm.service=ucm
+    - traefik.http.routers.ucm.rule=Host(`ucm.${DOMAIN}`)
+    - traefik.http.routers.ucm.entryPoints=websecure
+    - traefik.http.routers.ucm.tls.certresolver=cloudflare
+    - traefik.http.routers.ucm.middlewares=Real-IP@file, Headers@file
+    # AutoKuma - Uptime Kuma Monitor
+    - kuma.ucm.http.name=UCM
+    - kuma.ucm.http.url=https://ucm.${DOMAIN}
+    - kuma.ucm.http.headers=${KUMA_CFHEADERS}
+    - kuma.ucm.http.parent_name=security
+
   #bitwarden-lite:
   #  container_name: Bitwarden-lite
   #  hostname: bitwarden-lite
