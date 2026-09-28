@@ -37,8 +37,10 @@ services:
       # Pilot
       #- --pilot.token=${TRAEFIK_PILOT_TOKEN}
       # Plugins
-      - --experimental.plugins.traefik-real-ip.modulename=github.com/soulbalz/traefik-real-ip
-      - --experimental.plugins.traefik-real-ip.version=v1.0.3
+      #- --experimental.plugins.traefik-real-ip.modulename=github.com/soulbalz/traefik-real-ip
+      #- --experimental.plugins.traefik-real-ip.version=v1.0.3
+      - --experimental.plugins.cloudflarewarp.modulename=github.com/fma965/cloudflarewarp
+      - --experimental.plugins.cloudflarewarp.version=v1.0.0
       # Logging
       - --log.level=INFO
       - --log.filePath=/var/log/traefik/traefik.log
