@@ -51,6 +51,7 @@ services:
     # Traefik - Service
     - traefik.enable=true
     - traefik.http.services.ucm.loadbalancer.server.port=8443
+    - traefik.http.services.ucm.loadbalancer.server.scheme=https
     # Traefik - Router - HTTPS
     - traefik.http.routers.ucm.service=ucm
     - traefik.http.routers.ucm.rule=Host(`ucm.${DOMAIN}`)

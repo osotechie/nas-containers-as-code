@@ -93,15 +93,14 @@ services:
   PBS:
     container_name: pbs
     hostname: pbs
-    image: ayufan/proxmox-backup-server:latest
+    image: dockurr/proxmox-backup
     restart: always
     networks:
       IoT:
         ipv4_address: 10.1.11.210
     volumes:
-      - ${DOCKERDIR}/pbs/etc:/etc/proxmox-backup
-      - ${DOCKERDIR}/pbs/var/log:/var/log/proxmox-backup
-      - ${DOCKERDIR}/pbs/var/lib:/var/lib/proxmox-backup
+      - ${DOCKERDIR}/pbs/config:/etc/proxmox-backup
+      - ${DOCKERDIR}/pbs/data:/var/lib/proxmox-backup
       - /mnt/storage/backups/pve:/backups
     tmpfs:
       - /run
@@ -113,6 +112,7 @@ services:
     # Traefik - Service
     - traefik.enable=true
     - traefik.http.services.pbs.loadbalancer.server.port=8007
+    - traefik.http.services.pbs.loadbalancer.server.scheme=https
     # Traefik - Router - HTTPS
     - traefik.http.routers.pbs.rule=Host(`pbs.${DOMAIN}`)
     - traefik.http.routers.pbs.entryPoints=websecure
